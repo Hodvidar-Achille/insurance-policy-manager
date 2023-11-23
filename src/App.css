@@ -64,6 +64,7 @@ main {
 }
 
 .policy-card {
+  position: relative;
   background-color: #4C66D6;
   border-radius: 20px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -71,7 +72,8 @@ main {
   margin: 5px;
   display: flex;
   flex-direction: column;
-  width: 200px; /* Fixed width, you can use percentage or flex if you prefer */
+  width: 200px;
+  padding-bottom: 45px;
 }
 
 .policy-field {
@@ -120,4 +122,22 @@ main {
 
 .status-inactive {
   color: red;
+}
+
+.delete-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 16px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for hover effect */
+.delete-button:hover {
+  background: darkred;
 }

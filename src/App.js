@@ -70,6 +70,17 @@ function App() {
             });
     };
 
+    const deletePolicy = async (policyId) => {
+        try {
+            await api.delete(`/${policyId}`);
+            // Filter out the policy that has been deleted
+            setPolicies(policies.filter(policy => policy.id !== policyId));
+        } catch (error) {
+            console.error('There was an error deleting the policy', error);
+            // Handle the error properly (e.g., show a message to the user)
+        }
+    };
+
     return (
         <div className="App">
             <header className="App-header">
@@ -137,12 +148,12 @@ function App() {
                                 </div>
                                 <div className="policy-field policy-start-date" title="Start Date">
                                     <span style={{color: determineDateColor(policy.startDate, policy.endDate)}}>
-                                      {format(parseISO(policy.startDate), 'd MMMM yyyy')}
+                                      {format(parseISO(policy.startDate), dateFormat)}
                                     </span>
                                 </div>
                                 <div className="policy-field policy-end-date" title="End Date">
                                     <span style={{color: determineDateColor(policy.startDate, policy.endDate)}}>
-                                      {format(parseISO(policy.endDate), 'd MMMM yyyy')}
+                                      {format(parseISO(policy.endDate), dateFormat)}
                                     </span>
                                 </div>
                                 <div className="policy-field policy-creation-date" title="Creation Dat">
@@ -151,6 +162,13 @@ function App() {
                                 <div className="policy-field policy-update-date" title="Update Date">
                                     <span>{format(parseISO(policy.updateDateTime), dateTimeFormat)}</span>
                                 </div>
+                                <button
+                                    className="delete-button"
+                                    onClick={() => deletePolicy(policy.id)}
+                                    title="Delete Policy"
+                                >
+                                    Delete
+                                </button>
                             </div>
                         ))}
                     </section>

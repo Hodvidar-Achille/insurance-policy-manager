@@ -50,9 +50,17 @@ main {
 
 .policies-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust the minmax as needed */
-  gap: 5px; /* Space between cards */
-  padding: 5px; /* Padding around the grid */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.policies-title {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  display: block
 }
 
 .policy-card {
@@ -71,42 +79,32 @@ main {
   border-radius: 10px; /* Rounded corners for the fields */
   margin: 5px 0; /* Margin between fields */
   padding: 5px;
+  background-color: #EAECF6;
+  text-align: center;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  /*background-color: #e7e7e7;*/
-  /*background-color: transparent;*/
+  justify-content: center;
+  align-items: center;
 }
 
 .policy-field::before {
   content: attr(title);
   position: absolute;
-  background-color: #f0f0f0; /* Adjust background color as needed */
+  background-color: #f0f0f0;
   padding: 4px 8px;
   border-radius: 4px;
   top: 50%;
   left: 0;
   transform: translateY(-50%) scale(0);
   transition: transform 0.3s ease-in-out;
-  pointer-events: none; /* Prevent the tooltip from being clickable */
+  pointer-events: none;
   white-space: nowrap;
-  z-index: 10; /* Adjust if needed to ensure it's above other content */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: adds a shadow to the tooltip */
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .policy-field:hover::before {
   transform: translateY(-50%) scale(1);
 }
-
-/* You can add specific classes for each field to have different background colors */
-
-.policy-name { background-color: #add8e6; }
-.policy-status { background-color: #90ee90; }
-.policy-start-date { background-color: #ffd700; }
-.policy-end-date { background-color: #ff6347; }
-.policy-creation-date { background-color: #87cefa; }
-.policy-update-date { background-color: #da70d6; }
-
 
 .policy-field span {
   white-space: pre-wrap;
@@ -114,4 +112,12 @@ main {
   text-overflow: ellipsis;
   display: inline-block;
   max-width: 100%;
+}
+
+.status-active {
+  color: green;
+}
+
+.status-inactive {
+  color: red;
 }

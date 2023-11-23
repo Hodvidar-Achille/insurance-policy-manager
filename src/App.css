@@ -47,3 +47,71 @@ main {
     transform: rotate(360deg);
   }
 }
+
+.policies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust the minmax as needed */
+  gap: 5px; /* Space between cards */
+  padding: 5px; /* Padding around the grid */
+}
+
+.policy-card {
+  background-color: #4C66D6;
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 200px; /* Fixed width, you can use percentage or flex if you prefer */
+}
+
+.policy-field {
+  position: relative;
+  border-radius: 10px; /* Rounded corners for the fields */
+  margin: 5px 0; /* Margin between fields */
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /*background-color: #e7e7e7;*/
+  /*background-color: transparent;*/
+}
+
+.policy-field::before {
+  content: attr(title);
+  position: absolute;
+  background-color: #f0f0f0; /* Adjust background color as needed */
+  padding: 4px 8px;
+  border-radius: 4px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) scale(0);
+  transition: transform 0.3s ease-in-out;
+  pointer-events: none; /* Prevent the tooltip from being clickable */
+  white-space: nowrap;
+  z-index: 10; /* Adjust if needed to ensure it's above other content */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: adds a shadow to the tooltip */
+}
+
+.policy-field:hover::before {
+  transform: translateY(-50%) scale(1);
+}
+
+/* You can add specific classes for each field to have different background colors */
+
+.policy-name { background-color: #add8e6; }
+.policy-status { background-color: #90ee90; }
+.policy-start-date { background-color: #ffd700; }
+.policy-end-date { background-color: #ff6347; }
+.policy-creation-date { background-color: #87cefa; }
+.policy-update-date { background-color: #da70d6; }
+
+
+.policy-field span {
+  white-space: pre-wrap;
+  overflow: scroll;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+}

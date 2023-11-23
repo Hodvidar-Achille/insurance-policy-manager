@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {formatISO, parseISO} from 'date-fns';
+import {format, formatISO, parseISO} from 'date-fns';
 import './App.css';
 
 const apiBaseURL = 'http://localhost:8080/api/v1/insurance-policies'; // TODO in a .env file
-
 const api = axios.create({
     baseURL: apiBaseURL,
     headers: {
         'Authorization': `Basic ${window.btoa('user:password')}` // TODO in a .env file
     }
 });
+const dateFormat = 'd MMMM yyyy';
+const dateTimeFormat = 'd MMM yyyy HH:mm:ss';
 
 function App() {
     const [policies, setPolicies] = useState([]);
@@ -103,17 +104,32 @@ function App() {
                     <button type="submit">Submit</button>
                 </form>
 
-                <section>
+                <section className="policies-container">
                     <h2>Current Policies</h2>
-                    <ul>
-                        {policies.map(policy => (
-                            <li key={policy.id}>
-                                {policy.name} - {policy.status} (Starts: {formatISO(parseISO(policy.startDate))},
-                                Ends: {formatISO(parseISO(policy.endDate))})
-                            </li>
-                        ))}
-                    </ul>
+                    {policies.map(policy => (
+                        <div className="policy-card" key={policy.id}>
+                            <div className="policy-field policy-name" title="Name">
+                                <span>{policy.name}</span>
+                            </div>
+                            <div className="policy-field policy-status" title="Status">
+                                <span>{policy.status}</span>
+                            </div>
+                            <div className="policy-field policy-start-date" title="Start Date">
+                                <span>{format(parseISO(policy.startDate), dateFormat)}</span>
+                            </div>
+                            <div className="policy-field policy-end-date" title="End Date">
+                                <span>{format(parseISO(policy.endDate), dateFormat)}</span>
+                            </div>
+                            <div className="policy-field policy-creation-date" title="Creation Dat">
+                                <span>{format(parseISO(policy.creationDateTime), dateTimeFormat)}</span>
+                            </div>
+                            <div className="policy-field policy-update-date" title="Update Date">
+                                <span>{format(parseISO(policy.updateDateTime), dateTimeFormat)}</span>
+                            </div>
+                        </div>
+                    ))}
                 </section>
+
             </main>
         </div>
     );

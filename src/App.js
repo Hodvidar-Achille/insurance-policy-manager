@@ -87,51 +87,58 @@ function App() {
                 <h1>Insurance Policy Manager</h1>
             </header>
             <main>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="name">Policy Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                    />
-
-                    <label htmlFor="status">Status:</label>
-                    <select
-                        id="status"
-                        name="status"
-                        value={form.status}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="ACTIVE">Active</option>
-                        <option value="INACTIVE">Inactive</option>
-                    </select>
-
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input
-                        type="date"
-                        id="startDate"
-                        name="startDate"
-                        value={form.startDate}
-                        onChange={handleChange}
-                        required
-                    />
-
-                    <label htmlFor="endDate">End Date:</label>
-                    <input
-                        type="date"
-                        id="endDate"
-                        name="endDate"
-                        value={form.endDate}
-                        onChange={handleChange}
-                        required
-                    />
-
-                    <button type="submit">Submit</button>
+                <form onSubmit={handleSubmit} className="form-container">
+                    <div className="form-field">
+                        <label htmlFor="name">Policy Name:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={form.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label htmlFor="status">Status:</label>
+                        <select
+                            id="status"
+                            name="status"
+                            value={form.status}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="ACTIVE">Active</option>
+                            <option value="INACTIVE">Inactive</option>
+                        </select>
+                    </div>
+                    <div className="form-field">
+                        <label htmlFor="startDate">Start Date:</label>
+                        <input
+                            type="date"
+                            id="startDate"
+                            name="startDate"
+                            value={form.startDate}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label htmlFor="endDate">End Date:</label>
+                        <input
+                            type="date"
+                            id="endDate"
+                            name="endDate"
+                            value={form.endDate}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="create-button">
+                        Create New Insurance Policy
+                    </button>
                 </form>
+
 
                 <div>
                     <div className="policies-title"><h2>Current Policies</h2></div>
@@ -162,6 +169,7 @@ function App() {
                                 <div className="policy-field policy-update-date" title="Update Date">
                                     <span>{format(parseISO(policy.updateDateTime), dateTimeFormat)}</span>
                                 </div>
+
                                 <button
                                     className="delete-button"
                                     onClick={() => deletePolicy(policy.id)}

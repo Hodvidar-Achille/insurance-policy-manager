@@ -48,6 +48,45 @@ main {
   }
 }
 
+.form-container {
+  background-color: #f0f0f0; /* Similar to policy card */
+  border-radius: 20px; /* Rounded corners like the cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  padding: 20px;
+  margin: 20px auto; /* Center the form in the page */
+  width: fit-content; /* Adjust width to fit content */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between form fields */
+}
+
+.form-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Space after each field */
+}
+
+.form-field input,
+.form-field select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc; /* subtle border */
+}
+
+.create-button {
+  padding: 10px 15px;
+  background-color: blue; /* Use a color that matches your theme */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.create-button:hover {
+  background-color: darkblue; /* Darker color on hover */
+}
+
 .policies-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

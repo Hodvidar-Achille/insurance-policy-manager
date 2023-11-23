@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  padding: 20px;
+}
+
+main {
+  padding: 10px;
 }
 
 .App-logo {
@@ -15,14 +20,20 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 50px; /* Adjust height to your preference */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100; /* Ensures the header is above other content */
 }
+
 
 .App-link {
   color: #61dafb;

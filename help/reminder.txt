@@ -1,0 +1,4 @@
+# commands:
+Run and Build the Application
+Run the application locally with npm start. This will start the development server.
+When ready for production, create a build with npm run build.

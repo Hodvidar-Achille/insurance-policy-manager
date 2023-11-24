@@ -1,10 +1,8 @@
 # insurance-policy-manager
 
-Small app to test React with a REST API
+Small app to test React with a REST API (using [InsuraTradeFlow](https://github.com/Hodvidar-Achille/InsuraTradeFlow))
 
 ------------------------------------------------------------------------------------------------------------------------
-
-[]: # Path: README.md
 
 # Getting Started with Create React App
 

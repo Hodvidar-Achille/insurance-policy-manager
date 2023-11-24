@@ -111,6 +111,37 @@ function App() {
         }
     };
 
+    const [sortField, setSortField] = useState('name');
+    const [sortDirection, setSortDirection] = useState('ascending');
+
+    const handleSortFieldChange = (e) => {
+        setSortField(e.target.value);
+    };
+
+    const toggleSortDirection = () => {
+        setSortDirection(prevDirection => prevDirection === 'ascending' ? 'descending' : 'ascending');
+    };
+
+
+    const sortPolicies = (policies, key, direction) => {
+        return policies.sort((a, b) => {
+            const fieldA = a[key];
+            const fieldB = b[key];
+            if (key.includes('Date')) {
+                // For date fields, parse them as dates
+                return direction === 'ascending'
+                    ? new Date(fieldA) - new Date(fieldB)
+                    : new Date(fieldB) - new Date(fieldA);
+            } else {
+                // For non-date fields, compare as strings
+                if (fieldA < fieldB) return direction === 'ascending' ? -1 : 1;
+                if (fieldA > fieldB) return direction === 'ascending' ? 1 : -1;
+                return 0;
+            }
+        });
+    };
+
+
     return (
         <div className="App">
             <header className="App-header">
@@ -172,8 +203,26 @@ function App() {
 
                 <div>
                     <div className="policies-title"><h2>Current Policies</h2></div>
+
+                    <div className="sort-controls">
+                            <label htmlFor="sortField">Sort by:</label>
+                            <select id="sortField" value={sortField} onChange={handleSortFieldChange}>
+                                <option value="name">Name</option>
+                                <option value="status">Status</option>
+                                <option value="startDate">Start Date</option>
+                                <option value="endDate">End Date</option>
+                                <option value="creationDateTime">Creation Date</option>
+                                <option value="updateDateTime">Update Date</option>
+                            </select>
+
+                            <button onClick={toggleSortDirection}>
+                                {sortDirection === 'ascending' ? 'Ascending' : 'Descending'}
+                            </button>
+                    </div>
+
+
                     <section className="policies-container">
-                        {policies.map(policy => (
+                        {sortPolicies(policies, sortField, sortDirection).map(policy => (
                             <div className="policy-card" key={policy.id}>
                                 <div className="policy-field policy-name" title="Name">
                                     <span><b>{policy.name}</b></span>
@@ -221,14 +270,20 @@ function App() {
                                             <input
                                                 type="date"
                                                 value={editingForm.startDate}
-                                                onChange={e => setEditingForm({...editingForm, startDate: e.target.value})}
+                                                onChange={e => setEditingForm({
+                                                    ...editingForm,
+                                                    startDate: e.target.value
+                                                })}
                                             />
                                         </div>
                                         <div className="policy-field">
                                             <input
                                                 type="date"
                                                 value={editingForm.endDate}
-                                                onChange={e => setEditingForm({...editingForm, endDate: e.target.value})}
+                                                onChange={e => setEditingForm({
+                                                    ...editingForm,
+                                                    endDate: e.target.value
+                                                })}
                                             />
                                         </div>
                                         <button onClick={handleConfirm}>Confirm</button>
@@ -239,11 +294,12 @@ function App() {
                                         <button className="edit-button" onClick={() => handleEdit(policy)}>
                                             Edit
                                         </button>
+                                        <button className="delete-button" onClick={() => deletePolicy(policy.id)}
+                                                title="Delete Policy">
+                                            Delete
+                                        </button>
                                     </>
                                 )}
-                                <button className="delete-button" onClick={() => deletePolicy(policy.id)} title="Delete Policy">
-                                    Delete
-                                </button>
                             </div>
                         ))}
                     </section>

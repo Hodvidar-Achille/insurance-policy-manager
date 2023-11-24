@@ -93,6 +93,7 @@ main {
   gap: 5px;
   padding: 5px;
   width: 100%;
+  border: darkblue 2px solid;
 }
 
 .policies-title {
@@ -107,12 +108,11 @@ main {
   background-color: #4C66D6;
   border-radius: 20px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 5px;
   margin: 5px;
   display: flex;
   flex-direction: column;
   width: 200px;
-  padding-bottom: 45px;
+  padding: 5px 5px 45px;
 }
 
 .policy-field {
@@ -213,4 +213,38 @@ main {
   cursor: pointer;
 }
 
-/* You can add more specific styles for the confirm and cancel buttons if needed */
+.sort-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 20px;
+  align-content: center;
+  border: darkblue 2px solid;
+}
+
+.sort-controls label,
+.sort-controls select,
+.sort-controls button {
+  font-size: 1rem;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.sort-controls select,
+.sort-controls button {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+
+.sort-controls button {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.sort-controls button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}

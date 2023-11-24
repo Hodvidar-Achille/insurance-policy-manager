@@ -12,7 +12,6 @@ const api = axios.create({
 });
 const dateFormat = 'd MMMM yyyy';
 const dateTimeFormat = 'd MMM yyyy HH:mm:ss';
-
 const determineDateColor = (startDate, endDate) => {
     const now = new Date();
     const start = parseISO(startDate);
@@ -29,7 +28,6 @@ const determineDateColor = (startDate, endDate) => {
     }
     return 'black'; // Default color if none of the above conditions are met
 };
-
 
 function App() {
     const [policies, setPolicies] = useState([]);
@@ -78,6 +76,37 @@ function App() {
         } catch (error) {
             console.error('There was an error deleting the policy', error);
             // Handle the error properly (e.g., show a message to the user)
+        }
+    };
+
+    const [editingPolicyId, setEditingPolicyId] = useState(null);
+    const [editingForm, setEditingForm] = useState({
+        name: '',
+        status: '',
+        startDate: '',
+        endDate: ''
+    });
+
+    const handleEdit = policy => {
+        setEditingPolicyId(policy.id);
+        setEditingForm({
+            name: policy.name,
+            status: policy.status,
+            startDate: policy.startDate,
+            endDate: policy.endDate
+        });
+    };
+    const handleCancel = () => {
+        setEditingPolicyId(null);
+    };
+    const handleConfirm = async () => {
+        try {
+            const response = await api.put(`/${editingPolicyId}`, editingForm);
+            // Update the policies state with the new policy data
+            setPolicies(policies.map(policy => policy.id === editingPolicyId ? response.data : policy));
+            setEditingPolicyId(null);
+        } catch (error) {
+            console.error('There was an error updating the policy', error);
         }
     };
 
@@ -170,11 +199,48 @@ function App() {
                                     <span>{format(parseISO(policy.updateDateTime), dateTimeFormat)}</span>
                                 </div>
 
-                                <button
-                                    className="delete-button"
-                                    onClick={() => deletePolicy(policy.id)}
-                                    title="Delete Policy"
-                                >
+                                {editingPolicyId === policy.id ? (
+                                    // If we're editing this policy, show the editing form
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={editingForm.name}
+                                            onChange={e => setEditingForm({...editingForm, name: e.target.value})}
+                                        />
+                                        <div className="policy-field">
+                                            <select
+                                                value={editingForm.status}
+                                                onChange={e => setEditingForm({...editingForm, status: e.target.value})}
+                                            >
+                                                <option value="ACTIVE">Active</option>
+                                                <option value="INACTIVE">Inactive</option>
+                                            </select>
+                                        </div>
+                                        <div className="policy-field">
+                                            <input
+                                                type="date"
+                                                value={editingForm.startDate}
+                                                onChange={e => setEditingForm({...editingForm, startDate: e.target.value})}
+                                            />
+                                        </div>
+                                        <div className="policy-field">
+                                            <input
+                                                type="date"
+                                                value={editingForm.endDate}
+                                                onChange={e => setEditingForm({...editingForm, endDate: e.target.value})}
+                                            />
+                                        </div>
+                                        <button onClick={handleConfirm}>Confirm</button>
+                                        <button onClick={handleCancel}>Cancel</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button className="edit-button" onClick={() => handleEdit(policy)}>
+                                            Edit
+                                        </button>
+                                    </>
+                                )}
+                                <button className="delete-button" onClick={() => deletePolicy(policy.id)} title="Delete Policy">
                                     Delete
                                 </button>
                             </div>

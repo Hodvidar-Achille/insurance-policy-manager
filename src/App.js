@@ -3,13 +3,14 @@ import axios from 'axios';
 import {format, parseISO} from 'date-fns';
 import './App.css';
 
-const apiBaseURL = 'http://localhost:8080/api/v1/insurance-policies'; // TODO in a .env file
+const apiURL = `${process.env.REACT_APP_API_HOST}${process.env.REACT_APP_API_BASE_URL}`;
 const api = axios.create({
-    baseURL: apiBaseURL,
+    baseURL: apiURL,
     headers: {
-        'Authorization': `Basic ${window.btoa('user:password')}` // TODO in a .env file
+        'Authorization': `Basic ${window.btoa(`${process.env.REACT_APP_BASIC_AUTH_USER}:${process.env.REACT_APP_BASIC_AUTH_PASSWORD}`)}`
     }
 });
+
 const dateFormat = 'd MMMM yyyy';
 const dateTimeFormat = 'd MMM yyyy HH:mm:ss';
 const determineDateColor = (startDate, endDate) => {
@@ -58,7 +59,7 @@ function App() {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        api.post(apiBaseURL, form)
+        api.post(apiURL, form)
             .then(response => {
                 setPolicies([...policies, response.data]);
                 setForm({name: '', status: 'ACTIVE', startDate: '', endDate: ''}); // Reset form
